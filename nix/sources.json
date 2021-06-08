@@ -149,10 +149,10 @@
         "homepage": "",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "410bbd828cdc6156aecd5bc91772ad3a6b1099c7",
-        "sha256": "0idvgvpgnzvk03yvd77lrca9qib936fq2x690jvk5gk3blsckz3r",
+        "rev": "d8eb97e3801bde96491535f40483d550b57605b9",
+        "sha256": "1bdd7jinq5d40qai45jfkbcw1n96c7fdlams5iidwzy2ag8axlqh",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/410bbd828cdc6156aecd5bc91772ad3a6b1099c7.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/d8eb97e3801bde96491535f40483d550b57605b9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "old-ghc-nix": {
