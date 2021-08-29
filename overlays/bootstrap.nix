@@ -476,7 +476,7 @@ in {
                 src-spec = rec {
                     version = "8.10.6";
                     url = "https://downloads.haskell.org/~ghc/${version}/ghc-${version}-src.tar.xz";
-                    sha256 = "1s8cc50whb0qsgnmq6p40ir5yzp3nm3x0as9q518nh1klmrbmbs3";
+                    sha256 = "00ccsqm4hrb1ffqxib8c69wyj11b1f71yhhhkkhj57cnahfxp7ii";
                 };
 
                 ghc-patches = ghc-patches "8.10.6";
