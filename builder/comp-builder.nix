@@ -77,6 +77,7 @@ let self =
 # Debug
 , enableDebugRTS ? false
 , enableDWARF ? false
+, writeLogs ? false
 
 # This will only work with a custom TSan way enabled custom compiler
 , enableTSanRTS ? false
@@ -383,10 +384,11 @@ let
       [shellWrappers buildPackages.removeReferencesTo]
       ++ executableToolDepends;
 
-    outputs = ["out" ]
+    outputs = ["out"]
       ++ (lib.optional enableSeparateDataOutput "data")
       ++ (lib.optional keepSource "source")
-      ++ (lib.optional writeHieFiles "hie");
+      ++ (lib.optional writeHieFiles "hie")
+      ++ (lib.optional writeLogs "logs");
 
     prePatch =
       # emcc is very slow if it cannot cache stuff in $HOME
@@ -438,7 +440,9 @@ let
       '' else ''
         runHook preBuild
         # https://gitlab.haskell.org/ghc/ghc/issues/9221
-        $SETUP_HS build ${haskellLib.componentTarget componentId} -j$(($NIX_BUILD_CORES > 4 ? 4 : $NIX_BUILD_CORES)) ${lib.concatStringsSep " " setupBuildFlags}
+        ${lib.optionalString writeLogs "mkdir $logs"}
+        $SETUP_HS build ${haskellLib.componentTarget componentId} -j$(($NIX_BUILD_CORES > 4 ? 4 :
+        $NIX_BUILD_CORES)) ${lib.concatStringsSep " " setupBuildFlags} ${lib.optionalString writeLogs "> >(tee $logs/stdout.log) 2> >(tee $logs/stderr.log)"}
         runHook postBuild
       '');
 
