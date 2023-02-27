@@ -107,11 +107,16 @@ in runCommand "${componentName}-${ghc.name}-env" {
         rm -f $out/bin/$prg
         makeWrapper ${ghc}/bin/$prg $out/bin/$prg                           \
           --add-flags '"-B$NIX_${ghcCommandCaps}_LIBDIR"'                   \
+          ${lib.optionalString ((stdenv.targetPlatform.isLinux && !stdenv.targetPlatform.isAndroid) || stdenv.targetPlatform.isAarch32) 
+         "--add-flags -optl-fuse-ld=gold                                    \\"
+           }
           --set "NIX_${ghcCommandCaps}"        "$out/bin/${ghcCommand}"     \
           --set "NIX_${ghcCommandCaps}PKG"     "$out/bin/${ghcCommand}-pkg" \
           --set "NIX_${ghcCommandCaps}_DOCDIR" "${docDir}"                  \
           --set "GHC_PLUGINS"                  "$GHC_PLUGINS"               \
           --set "NIX_${ghcCommandCaps}_LIBDIR" "${libDir}"
+  ''
+  + ''
       fi
     done
 
